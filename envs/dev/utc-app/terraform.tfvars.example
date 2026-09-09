@@ -1,0 +1,6 @@
+bastion_ssh_cidrs   = ["YOUR_PUBLIC_IP/32"]
+certificate_arn     = "arn:aws:acm:REGION:YOUR_ACCOUNT_ID:certificate/YOUR_CERT_ID"
+key_name             = "your-ec2-keypair-name"
+notification_email  = "you@example.com"
+zone_name           = "yourdomain.com"
+record_name         = "dev.yourdomain.com"
