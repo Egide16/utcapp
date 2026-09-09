@@ -1,6 +1,6 @@
-# UTC App - AWS 3-Tier Infrastructure (Terraform)
+# UTC Student Portal Infrastructure as Code
 
-Production-style, modular Terraform codebase provisioning a complete 3-tier web application on AWS: multi-AZ VPC, HTTPS load balancing, auto-scaling EC2 app tier, Multi-AZ RDS, shared EFS storage, S3, and Route 53 DNS - with remote state, IAM-role-based access (no static credentials), and a repeatable, environment-based deployment structure.
+This repository contains the modular Terraform Infrastructure as Code (IaC) required to deploy the AWS multi-tier architecture for the UTC Student Services Portal.
 
 Skills demonstrated: Terraform (modular design, remote state, S3 native locking), AWS networking (VPC, subnets, NAT, routing, security groups), AWS compute (EC2, Auto Scaling, Launch Templates, IAM roles/SSM), AWS data services (RDS Multi-AZ, EFS, S3), AWS DNS/TLS (Route 53, ACM), CloudWatch alarms and SNS notifications, infrastructure-as-code best practices.
 
