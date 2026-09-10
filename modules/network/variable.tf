@@ -115,6 +115,17 @@ variable "allow_all_egress" {
   type    = bool
   default = true
 }
+variable "db_allow_all_egress" {
+  description = "Allow all outbound traffic from the database SG. Should normally stay false — RDS never initiates outbound connections."
+  type        = bool
+  default     = false
+}
+
+variable "efs_allow_all_egress" {
+  description = "Allow all outbound traffic from the EFS SG. Should normally stay false — EFS never initiates outbound connections."
+  type        = bool
+  default     = false
+}
 
 variable "tags" {
   type    = map(string)

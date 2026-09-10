@@ -54,9 +54,9 @@ module "alb" {
   project_name = "utc-app"
   environment  = "dev"
 
-  vpc_id                 = module.network.vpc_id
-  public_subnet_ids      = module.network.public_subnet_ids
-  alb_security_group_id  = module.network.alb_security_group_id
+  vpc_id                = module.network.vpc_id
+  public_subnet_ids     = module.network.public_subnet_ids
+  alb_security_group_id = module.network.alb_security_group_id
 
   certificate_arn = var.certificate_arn
   target_port     = 80
@@ -72,11 +72,11 @@ module "compute" {
   project_name = "utc-app"
   environment  = "dev"
 
-  vpc_id                     = module.network.vpc_id
-  public_subnet_ids          = module.network.public_subnet_ids
-  private_subnet_ids         = module.network.private_subnet_ids
-  app_security_group_id      = module.network.app_security_group_id
-  bastion_security_group_id  = module.network.bastion_security_group_id
+  vpc_id                    = module.network.vpc_id
+  public_subnet_ids         = module.network.public_subnet_ids
+  private_subnet_ids        = module.network.private_subnet_ids
+  app_security_group_id     = module.network.app_security_group_id
+  bastion_security_group_id = module.network.bastion_security_group_id
 
   target_group_arns = module.alb.target_group_arns
 
@@ -85,14 +85,14 @@ module "compute" {
 
   notification_email = var.notification_email
 
-  s3_bucket_arn        = module.storage.bucket_arn
-  efs_file_system_id   = module.storage.efs_file_system_id
-  efs_access_point_id  = module.storage.efs_access_point_id
-  db_secret_arn        = module.database.master_user_secret_arn
+  s3_bucket_arn       = module.storage.bucket_arn
+  efs_file_system_id  = module.storage.efs_file_system_id
+  efs_access_point_id = module.storage.efs_access_point_id
+  db_secret_arn       = module.database.master_user_secret_arn
 
-  enable_s3_access       = true
-  enable_efs_access      = true
-  enable_secrets_access  = true
+  enable_s3_access      = true
+  enable_efs_access     = true
+  enable_secrets_access = true
 }
 
 # ---------------------------------------------------------------------------

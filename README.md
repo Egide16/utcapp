@@ -18,14 +18,19 @@ Key components:
 - DNS: Route 53 alias record pointing at the ALB
 - State: Remote S3 backend with native S3 locking, Terraform 1.10+, no DynamoDB needed
 
-## Repo structure
+## Directory Structure
 
-bootstrap - one-time setup, creates the S3 state bucket, run once ever
-modules/network - VPC, subnets, NAT, routing, all security groups
-modules/alb - load balancer, listeners, target group
-modules/compute - IAM role, Launch Template, ASG, scaling, SNS, bastion
-modules/database - RDS MySQL
-modules/storage - S3 and EFS
-modules/dns - Route 53 record
-envs/dev/utc-app - dev environment, calls all modules together
-envs/prod - prod environment, not yet built
+utcapp/
++-- envs/
+|   +-- dev/
+|   |   +-- utc-app/         # Dev environment instantiation
+|   +-- prod/                # Production environment (not yet built)
++-- modules/
+|   +-- network/             # VPC, public/private/database subnets, IGW, NAT Gateways, security groups
+|   +-- alb/                 # ALB, Target Group, HTTPS Listener
+|   +-- compute/             # Launch Template, Auto Scaling Group, Scaling Policies, IAM roles, bastion host
+|   +-- database/            # RDS MySQL, DB Subnet Group, Secrets Manager
+|   +-- storage/             # S3 Buckets, EFS Filesystem, Mount Targets
+|   +-- dns/                 # Route 53 record
++-- bootstrap/                # One-time setup: creates the S3 state bucket
++-- README.md

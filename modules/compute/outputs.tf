@@ -25,3 +25,6 @@ output "bastion_instance_id" {
 output "bastion_public_ip" {
   value = var.enable_bastion ? aws_instance.bastion[0].public_ip : null
 }
+output "bastion_iam_role_arn" {
+  value = var.enable_bastion ? aws_iam_role.bastion[0].arn : null
+}

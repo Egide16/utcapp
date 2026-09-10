@@ -118,7 +118,40 @@ resource "aws_iam_role_policy" "secrets_access" {
     ]
   })
 }
+# ---------------------------------------------------------------------------
+# IAM role for bastion — adds SSM Session Manager as a second access path
+# ---------------------------------------------------------------------------
 
+resource "aws_iam_role" "bastion" {
+  count = var.enable_bastion ? 1 : 0
+
+  name = "${local.name_prefix}-bastion-role"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Effect    = "Allow"
+      Principal = { Service = "ec2.amazonaws.com" }
+      Action    = "sts:AssumeRole"
+    }]
+  })
+
+  tags = local.common_tags
+}
+
+resource "aws_iam_role_policy_attachment" "bastion_ssm_core" {
+  count = var.enable_bastion ? 1 : 0
+
+  role       = aws_iam_role.bastion[0].name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+}
+
+resource "aws_iam_instance_profile" "bastion" {
+  count = var.enable_bastion ? 1 : 0
+
+  name = "${local.name_prefix}-bastion-profile"
+  role = aws_iam_role.bastion[0].name
+}
 resource "aws_launch_template" "app" {
   name_prefix   = "${local.name_prefix}-app-"
   image_id      = data.aws_ami.amazon_linux_2023.id
@@ -140,7 +173,7 @@ resource "aws_launch_template" "app" {
     device_name = "/dev/xvda"
 
     ebs {
-      volume_size          = var.root_volume_size
+      volume_size           = var.root_volume_size
       volume_type           = "gp3"
       encrypted             = true
       delete_on_termination = true
@@ -272,8 +305,8 @@ resource "aws_sns_topic" "scaling" {
 }
 
 resource "aws_sns_topic_subscription" "scaling_email" {
-  count = var.notification_email != "" ? 1 : 0
-    topic_arn = aws_sns_topic.scaling.arn
+  count     = var.notification_email != "" ? 1 : 0
+  topic_arn = aws_sns_topic.scaling.arn
   protocol  = "email"
   endpoint  = var.notification_email
 }
@@ -298,6 +331,7 @@ resource "aws_instance" "bastion" {
   vpc_security_group_ids      = [var.bastion_security_group_id]
   key_name                    = var.key_name
   associate_public_ip_address = true
+  iam_instance_profile        = aws_iam_instance_profile.bastion[0].name
 
   metadata_options {
     http_endpoint               = "enabled"
@@ -307,9 +341,9 @@ resource "aws_instance" "bastion" {
 
   root_block_device {
     volume_size           = 30
-    volume_type            = "gp3"
-    encrypted              = true
-    delete_on_termination  = true
+    volume_type           = "gp3"
+    encrypted             = true
+    delete_on_termination = true
   }
 
   tags = merge(local.common_tags, {

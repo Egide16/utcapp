@@ -28,8 +28,9 @@ resource "aws_db_instance" "this" {
 
   manage_master_user_password = true
 
-  db_subnet_group_name    = var.db_subnet_group_name
-  vpc_security_group_ids  = [var.database_security_group_id]
+  db_subnet_group_name   = var.db_subnet_group_name
+  vpc_security_group_ids = [var.database_security_group_id]
+  publicly_accessible    = false
 
   multi_az = var.multi_az
 
