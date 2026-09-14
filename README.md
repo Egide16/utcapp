@@ -21,16 +21,18 @@ Key components:
 ## Directory Structure
 
 utcapp/
-+-- envs/
-|   +-- dev/
-|   |   +-- utc-app/         # Dev environment instantiation
-|   +-- prod/                # Production environment (not yet built)
-+-- modules/
-|   +-- network/             # VPC, public/private/database subnets, IGW, NAT Gateways, security groups
-|   +-- alb/                 # ALB, Target Group, HTTPS Listener
-|   +-- compute/             # Launch Template, Auto Scaling Group, Scaling Policies, IAM roles, bastion host
-|   +-- database/            # RDS MySQL, DB Subnet Group, Secrets Manager
-|   +-- storage/             # S3 Buckets, EFS Filesystem, Mount Targets
-|   +-- dns/                 # Route 53 record
-+-- bootstrap/                # One-time setup: creates the S3 state bucket
++-- app/                     # Frontend static site (HTML/CSS) served by app instances
++-- terraform/
+|   +-- envs/
+|   |   +-- dev/
+|   |   |   +-- utc-app/     # Dev environment instantiation
+|   |   +-- prod/            # Production environment (not yet built)
+|   +-- modules/
+|   |   +-- network/         # VPC, public/private/database subnets, IGW, NAT Gateways, security groups
+|   |   +-- alb/             # ALB, Target Group, HTTPS Listener
+|   |   +-- compute/         # Launch Template, Auto Scaling Group, Scaling Policies, IAM roles, bastion host
+|   |   +-- database/        # RDS MySQL, DB Subnet Group, Secrets Manager
+|   |   +-- storage/         # S3 Buckets, EFS Filesystem, Mount Targets
+|   |   +-- dns/             # Route 53 record
+|   +-- bootstrap/           # One-time setup: creates the S3 state bucket
 +-- README.md

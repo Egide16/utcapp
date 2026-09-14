@@ -1,0 +1,119 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.portal-container {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  max-width: 800px;
+  width: 100%;
+  overflow: hidden;
+}
+
+header {
+  background: #1a2a3a;
+  color: #ffffff;
+  padding: 30px 40px;
+  text-align: center;
+}
+
+header h1 {
+  font-size: 28px;
+  margin-bottom: 6px;
+}
+
+header .subtitle {
+  font-size: 14px;
+  color: #9fb3c8;
+}
+
+main {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 40px;
+  gap: 30px;
+}
+
+.login-card {
+  flex: 1;
+  min-width: 260px;
+}
+
+.login-card h2 {
+  margin-bottom: 20px;
+  color: #1a2a3a;
+}
+
+.login-card form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-card label {
+  font-size: 13px;
+  color: #444;
+  margin-top: 12px;
+  margin-bottom: 4px;
+}
+
+.login-card input {
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.login-card button {
+  margin-top: 20px;
+  padding: 12px;
+  background: #2c5364;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.login-card button:hover {
+  background: #203a43;
+}
+
+.info-panel {
+  flex: 1;
+  min-width: 260px;
+  background: #f4f7f9;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.info-panel h3 {
+  color: #1a2a3a;
+  margin-bottom: 10px;
+}
+
+.info-panel p {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.6;
+}
+
+footer {
+  background: #f4f7f9;
+  text-align: center;
+  padding: 16px;
+  font-size: 12px;
+  color: #888;
+}

@@ -17,11 +17,16 @@ locals {
     "echo \"${var.efs_file_system_id}:/ ${var.mount_path} efs _netdev,tls,accesspoint=${var.efs_access_point_id} 0 0\" >> /etc/fstab"
   ]) : ""
 
+  frontend_download_script = var.s3_bucket_name != "" ? join("\n", [
+    "aws s3 cp s3://${var.s3_bucket_name}/frontend/index.html /var/www/html/index.html",
+    "aws s3 cp s3://${var.s3_bucket_name}/frontend/style.css /var/www/html/style.css"
+  ]) : "echo \"<h1>${local.name_prefix} app server - $(hostname -f)</h1>\" > /var/www/html/index.html"
+
   default_user_data = <<-EOF
     #!/bin/bash
     dnf install -y httpd
     systemctl enable httpd
-    echo "<h1>${local.name_prefix} app server - $(hostname -f)</h1>" > /var/www/html/index.html
+    ${local.frontend_download_script}
     systemctl start httpd
     ${local.efs_mount_script}
   EOF
@@ -350,3 +355,4 @@ resource "aws_instance" "bastion" {
     Name = "${local.name_prefix}-bastion"
   })
 }
+  

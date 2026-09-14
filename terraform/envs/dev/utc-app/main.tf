@@ -31,6 +31,25 @@ module "storage" {
 }
 
 # ---------------------------------------------------------------------------
+# Frontend assets — uploaded to the existing S3 bucket, served by app instances
+# ---------------------------------------------------------------------------
+resource "aws_s3_object" "frontend_index" {
+  bucket       = module.storage.bucket_name
+  key          = "frontend/index.html"
+  source       = "${path.module}/../../../../app/index.html"
+  etag         = filemd5("${path.module}/../../../../app/index.html")
+  content_type = "text/html"
+}
+
+resource "aws_s3_object" "frontend_style" {
+  bucket       = module.storage.bucket_name
+  key          = "frontend/style.css"
+  source       = "${path.module}/../../../../app/style.css"
+  etag         = filemd5("${path.module}/../../../../app/style.css")
+  content_type = "text/css"
+}
+
+# ---------------------------------------------------------------------------
 # Database — RDS MySQL, Multi-AZ
 # ---------------------------------------------------------------------------
 

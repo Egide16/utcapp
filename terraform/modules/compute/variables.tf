@@ -148,3 +148,8 @@ variable "enable_secrets_access" {
   type    = bool
   default = false
 }
+variable "s3_bucket_name" {
+  description = "S3 bucket name to pull frontend assets from. Leave empty to fall back to the placeholder page."
+  type        = string
+  default     = ""
+}
